@@ -1,0 +1,32 @@
+<md-content layout="column"> 
+ 	<md-card>
+ 		<md-card-title> 
+ 			<md-card-title-media> 
+ 				<div class="md-media-lg card-media" layout-padding> 
+ 					<img ng-src="{{ user.profile.picture }}" alt="Profile Picture"/>
+ 				</div> 
+ 				<md-card-actions layout="row" layout-align="end center"> 
+ 					<md-button ng-click="user.getPublicInfo()">Public(Node)</md-button> 
+ 					<md-button ng-click="user.getPrivateInfo()">Private(Node)</md-button> 
+ 					<md-button ng-click="user.getStudents()">Students (Java)</md-button>
+ 				</md-card-actions> 
+ 			</md-card-title-media> 
+ 			<md-card-title-text> 
+ 				<span class="md-headline">{{ user.profile.nickname }}</span> 
+ 				<span class="md-subhead">{{ user.profile.email }}</span> 
+ 				 <md-list>
+			      <md-list-item class="md-3-line" ng-repeat="item in user.info">
+			        <div class="md-list-item-text">
+			          <h3>{{item.idStudent}}</h3>
+			          <h3>{{item.name}}</h3>
+			          <h4>{{item.type}}</h4>
+			          <p>{{item.age}}</p>
+			        </div>
+			        <md-button class="md-secondary" ng-click="user.deleteStudent(item.idStudent)">DELETE</md-button>
+			        <md-divider ng-if="!$last"></md-divider>
+			      </md-list-item>
+			    </md-list>
+ 			</md-card-title-text> 
+ 		</md-card-title> 
+ 	</md-card>
+ </md-content> 

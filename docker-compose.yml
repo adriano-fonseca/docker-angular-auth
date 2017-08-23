@@ -1,0 +1,82 @@
+version: '3'
+services:
+  frontend:
+    image: adrianofonseca/frontend-nginx:2.0
+    ports:
+     - "8082:80"
+    networks:
+      - app
+    depends_on:
+      - midleware
+    deploy:
+       replicas: 7
+       update_config:
+         parallelism: 1
+         delay: 50s
+       restart_policy:
+         condition: on-failure 
+       labels: [info=frontend]
+ 
+  midleware:
+    image: adrianofonseca/node-middleware:latest
+    ports:
+     - "8081:8081"
+    networks:
+      - app
+    depends_on:
+      - java-api
+    deploy:
+     replicas: 1
+     update_config:
+       parallelism: 1
+       delay: 30s
+     restart_policy:
+       condition: on-failure 
+     labels: [info=backend]
+          
+
+  java-api:
+    image: adrianofonseca/app:latest
+    ports:
+     - "8080:8080"
+     - "9990:9990"
+    networks:
+      - app
+    depends_on:
+      - postgres
+    deploy:
+     replicas: 1
+     update_config:
+       parallelism: 1
+       delay: 30s
+     restart_policy:
+       condition: on-failure 
+     labels: [info=backend]
+    
+  postgres:
+      image: adrianofonseca/postgres:9.5
+      ports:
+          - "5432:5432"
+      networks:
+      - app
+      environment:
+          - DEBUG=false
+          - DB_USER=app
+          - DB_PASS=app
+          - DB_NAME=app
+      volumes:
+          - /opt/postgresql/:/var/lib/postgresql
+  
+#  visualizer:
+#    image: dockersamples/visualizer:stable
+#    ports:
+#      - "8001:8080"
+#    stop_grace_period: 1m30s
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#    deploy:
+#      placement:
+#        constraints: [node.role == manager]
+  
+networks:
+      app:
