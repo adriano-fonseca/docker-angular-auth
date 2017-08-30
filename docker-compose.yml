@@ -7,9 +7,9 @@ services:
     networks:
       - app
     depends_on:
-      - midleware
+      - middleware
     deploy:
-       replicas: 7
+       replicas: 1
        update_config:
          parallelism: 1
          delay: 50s
@@ -17,7 +17,7 @@ services:
          condition: on-failure 
        labels: [info=frontend]
  
-  midleware:
+  middleware:
     image: adrianofonseca/node-middleware:latest
     ports:
      - "8081:8081"
@@ -38,8 +38,8 @@ services:
   java-api:
     image: adrianofonseca/app:latest
     ports:
-     - "8080:8080"
-     - "9990:9990"
+     - "8080"
+     - "9990"
     networks:
       - app
     depends_on:
@@ -56,7 +56,7 @@ services:
   postgres:
       image: adrianofonseca/postgres:9.5
       ports:
-          - "5432:5432"
+          - "5432"
       networks:
       - app
       environment:

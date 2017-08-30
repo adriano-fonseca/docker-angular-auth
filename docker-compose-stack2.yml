@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  midleware:
+    image: adrianofonseca/node-middleware:2
+    ports:
+     - "8086:8081"
+    networks:
+      - app
+    depends_on:
+      - app_java-api.app
+    deploy:
+     replicas: 1
+     update_config:
+       parallelism: 1
+       delay: 30s
+     restart_policy:
+       condition: on-failure 
+     labels: [info=backend]
