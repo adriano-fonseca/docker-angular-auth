@@ -24,7 +24,7 @@
 		
 		function deleteStudent(idStudent){
 			console.log("delete: "+idStudent);
-			$http.delete('http://localhost:8081/api/students/'+idStudent,{}).then(function(response) {
+			$http.delete('http://192.168.99.100:8081/api/students/'+idStudent,{}).then(function(response) {
 				vm.info = vm.info.filter(function(element){
 					  return element.idStudent !== idStudent;
 				});
@@ -44,7 +44,7 @@
 
 				var req = {
 				    method: 'POST',
-				    url: 'http://localhost:8081/api/students',
+				    url: 'http://192.168.99.100:8081/api/students',
 				    data: noteData
 				}
 
@@ -56,7 +56,7 @@
 		
 		function getPublicInfo(){
 			console.log("public");
-			$http.get('http://localhost:8081/api/public',{
+			$http.get('http://192.168.99.100:8081/api/public',{
 				skipAuthorization: true
 			}).then(function(response) {
 				vm.info = response.data;
@@ -65,13 +65,13 @@
 		
 		function getPrivateInfo(){
 			console.log("private");
-			$http.get('http://localhost:8081/api/private').then(function(response) {
+			$http.get('http://192.168.99.100:8081/api/private').then(function(response) {
 				vm.info = response.data;
 			});
 		}
 		
 		function getStudents(){
-			$http.get('http://localhost:8081/api/students').then(function(response) {
+			$http.get('http://192.168.99.100:8081/api/students').then(function(response) {
 				vm.info = response.data;
 			});
 		}
