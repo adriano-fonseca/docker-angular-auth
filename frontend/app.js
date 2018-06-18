@@ -16,8 +16,8 @@ angular
 		
 		/*Define which domains can send us request*/
 		jwtOptionsProvider.config({
-		      whiteListedDomains: ['localhost','192.168.99.100','192.168.99.101','192.168.99.103']
-	    });
+		      whiteListedDomains: ['localhost','192.168.99.100','192.168.99.101','192.168.99.103','18.185.61.34', '18.185.46.86','35.156.204.6']
+		});
 		
 		
 		$urlRouterProvider.otherwise('/home');
